@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+      branches:
+      - master
+
+jobs:
+    run-frontend-tests:
+        runs-on: [ubuntu-latest]
+
+        steps:
+        - uses: actions/checkout@v2
+          with:
+            fetch-depth: 0
+
+        - name: Install Node
+          uses: actions/setup-node@v1
+          with:
+            node-version: 13.14.0
+
+        - name: Install Jest
+          run: npm install jest
+
+        - name: Run tests
+          run: |
+            npm run test
+            # Install DeepSource CLI.
+            curl https://deepsource.io/cli | sh
+            # Report the results to DeepSource
+            #./bin/deepsource report --analyzer test-coverage --key javascript --value-file ./coverage.xml
