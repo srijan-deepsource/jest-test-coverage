@@ -29,6 +29,6 @@ jobs:
             # Install DeepSource CLI.
             curl https://deepsource.io/cli | sh
             # See the generated report:
-            ls ~/coverage/
+            ls ./coverage/
             # Report the results to DeepSource
             #./bin/deepsource report --analyzer test-coverage --key javascript --value-file ./coverage.xml
