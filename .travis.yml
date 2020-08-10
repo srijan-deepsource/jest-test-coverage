@@ -1,0 +1,20 @@
+language: node_js
+
+node_js:
+  - 13
+
+before_script:
+  - npm install jest
+
+script:
+  - npm run test
+
+after_success:
+  - curl https://deepsource.io/cli | sh
+  - echo $DEEPSOURCEDSN
+  # Report results to deepsource dev
+  - ./bin/deepsource report --analyzer test-coverage --key javascript --value-file ./coverage/cobertura-coverage.xml
+  # Report results to deepsource prod:
+  - DEEPSOURCE_DSN=$PROD_DSN
+  - echo $DEEPSOURCEDSN
+  - ./bin/deepsource report --analyzer test-coverage --key javascript --value-file ./coverage/cobertura-coverage.xml
