@@ -37,4 +37,5 @@ jobs:
             ./bin/deepsource report --analyzer test-coverage --key javascript --value-file ./coverage/cobertura-coverage.xml
             
             # Report the results to DeepSource Prod (Currently reporting as python)
+            DEEPSOURCE_DSN=${{ secrets.DS_DSN_PROD }} \
             ./bin/deepsource report --analyzer test-coverage --key python --value-file ./coverage/cobertura-coverage.xml
