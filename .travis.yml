@@ -1,20 +1,20 @@
+sudo: required
+dist: trusty
 language: node_js
-
 node_js:
   - 13
+python:
+  - "3.8"
 
-before_script:
+install:
   - npm install jest
+  - sudo pip install pytest-cov
 
 script:
-  - npm run test
+  - make test-python
+  - make test-js
 
 after_success:
-  - curl https://deepsource.io/cli | sh
-  - echo $DEEPSOURCEDSN
-  # Report results to deepsource dev
-  - ./bin/deepsource report --analyzer test-coverage --key javascript --value-file ./coverage/cobertura-coverage.xml
-  # Report results to deepsource prod:
   - DEEPSOURCE_DSN=$PROD_DSN
   - echo $DEEPSOURCEDSN
-  - ./bin/deepsource report --analyzer test-coverage --key javascript --value-file ./coverage/cobertura-coverage.xml
+  - make report-artifacts
